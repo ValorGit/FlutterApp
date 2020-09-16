@@ -69,7 +69,7 @@ class LearnQuizState extends State<LearnQuiz> {
 
   void startQuiz() {
     setState(() {
-      Navigator.pushReplacementNamed(context, '/test', arguments: {
+      Navigator.pushReplacementNamed(context, '/quizapp', arguments: {
         'fragen': fragenList[0]['frage'],
         'antworten': fragenList[0]['antwort']
       });
