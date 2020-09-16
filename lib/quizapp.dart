@@ -4,32 +4,31 @@ import 'quiz_funktion.dart';
 
 QuizFunktion quiz = new QuizFunktion();
 
-class QuizApp extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.pink[50],
-        appBar: AppBar(
-          backgroundColor: Colors.blue[200],
-          title: Text(
-            'Quizmasters',
-            style: TextStyle(fontSize: 30),
-          ),
-          centerTitle: true,
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: QuizPage(),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class QuizApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: Scaffold(
+//         backgroundColor: Colors.pink[50],
+//         appBar: AppBar(
+//           backgroundColor: Colors.blue[200],
+//           title: Text(
+//             'Quizmasters',
+//             style: TextStyle(fontSize: 30),
+//           ),
+//           centerTitle: true,
+//         ),
+//         body: SafeArea(
+//           child: Padding(
+//             padding: EdgeInsets.symmetric(horizontal: 8.0),
+//             child: QuizPage(),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class QuizPage extends StatefulWidget {
   @override
@@ -45,7 +44,7 @@ class _QuizPageState extends State<QuizPage> {
   Map data = {};
 
   void checkAnswer(String value) {
-    if (quiz.getAnswer() == value) {
+    if (data['antworten'][4] == value) {
       print('right answer');
       punkteBehalten.add(Icon(Icons.check, color: Colors.green));
       sumPunkte = sumPunkte + positionFragen * 2 + punkteProFragen;
@@ -82,7 +81,8 @@ class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
-    
+    print(data);
+
     return new WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -120,7 +120,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                       child: Center(
                         child: Text(
-                          quiz.getQuestion(),
+                          data['fragen'],
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -143,7 +143,7 @@ class _QuizPageState extends State<QuizPage> {
                           textColor: Colors.white,
                           color: Colors.greenAccent[400],
                           child: Text(
-                            '${quiz.choices[positionFragen][0]}',
+                            data['antworten'][0],
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
@@ -151,7 +151,7 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              checkAnswer('${quiz.choices[positionFragen][0]}');
+                              checkAnswer(data['antworten'][0]);
                             });
                           },
                         ),
@@ -166,7 +166,7 @@ class _QuizPageState extends State<QuizPage> {
                           textColor: Colors.white,
                           color: Colors.greenAccent[400],
                           child: Text(
-                            '${quiz.choices[positionFragen][1]}',
+                            data['antworten'][1],
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
@@ -174,7 +174,7 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              checkAnswer('${quiz.choices[positionFragen][1]}');
+                              checkAnswer(data['antworten'][1]);
                             });
                           },
                         ),
@@ -196,7 +196,7 @@ class _QuizPageState extends State<QuizPage> {
                           textColor: Colors.white,
                           color: Colors.greenAccent[400],
                           child: Text(
-                            '${quiz.choices[positionFragen][2]}',
+                            data['antworten'][2],
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
@@ -204,7 +204,7 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              checkAnswer('${quiz.choices[positionFragen][2]}');
+                              checkAnswer(data['antworten'][2]);
                             });
                           },
                         ),
@@ -219,7 +219,7 @@ class _QuizPageState extends State<QuizPage> {
                           textColor: Colors.white,
                           color: Colors.greenAccent[400],
                           child: Text(
-                            '${quiz.choices[positionFragen][3]}',
+                            data['antworten'][3],
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
@@ -227,7 +227,7 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              checkAnswer('${quiz.choices[positionFragen][3]}');
+                              checkAnswer(data['antworten'][3]);
                             });
                           },
                         ),
@@ -245,7 +245,9 @@ class _QuizPageState extends State<QuizPage> {
                       minWidth: 240.0,
                       height: 30.0,
                       color: Colors.red[300],
-                      onPressed: resetQuiz,
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/');
+                      },
                       child: new Text(
                         "Quit",
                         style:
