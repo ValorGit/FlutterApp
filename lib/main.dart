@@ -13,7 +13,7 @@ void main() {
     initialRoute: '/',
     routes: {
       '/': (context) => LearnQuiz(),
-      '/quizapp': (context) => QuizApp(),
+      '/quizapp': (context) => QuizPage(),
     },
   ));
 }
