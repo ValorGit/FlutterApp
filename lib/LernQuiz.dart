@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -10,16 +11,12 @@ class LearnQuiz extends StatefulWidget {
 }
 
 class LearnQuizState extends State<LearnQuiz> {
-  String position = '0';
   String quizid = '0';
   List fragenList;
 
   void quizFragen() async {
     var url = "http://zukunft.sportsocke522.de/quiz.php";
-    var data = {
-      "quizID": quizid,
-      "position": position,
-    };
+    var data = {"quizID": quizid};
 
     var res = await http.post(url, body: data);
 
@@ -69,11 +66,8 @@ class LearnQuizState extends State<LearnQuiz> {
 
   void startQuiz() {
     setState(() {
-      Navigator.pushReplacementNamed(context, '/quizapp', arguments: {
-        'fragen': fragenList[0]['frage'],
-        'antworten': fragenList[0]['antwort']
-      });
-      ;
+      Navigator.pushReplacementNamed(context, '/quizapp',
+          arguments: fragenList);
     });
   }
 }

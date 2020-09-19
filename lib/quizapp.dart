@@ -41,20 +41,20 @@ class _QuizPageState extends State<QuizPage> {
   int sumPunkte = 0;
   int positionFragen = 0;
   int punkteProFragen = 1;
-  Map data = {};
+  List data = [];
 
   void checkAnswer(String value) {
-    if (data['antworten'][4] == value) {
+    if (data[positionFragen]['antwort'][4] == value) {
       print('right answer');
       punkteBehalten.add(Icon(Icons.check, color: Colors.green));
-      sumPunkte = sumPunkte + positionFragen * 2 + punkteProFragen;
+      sumPunkte = sumPunkte + (positionFragen + 1) * 2 + punkteProFragen;
     } else {
       print('wrong answer');
       punkteBehalten.add(Icon(Icons.close, color: Colors.red));
     }
     positionFragen++;
     punkteProFragen++;
-    if (quiz.isFinshed() == true) {
+    if (positionFragen == data.length) {
       Alert(
           context: context,
           title: 'Finished',
@@ -100,7 +100,7 @@ class _QuizPageState extends State<QuizPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     new Text(
-                      "Question ${positionFragen + 1} of ${quiz.questions.length}",
+                      "Question ${positionFragen + 1} of ${data.length}",
                       style: new TextStyle(
                           fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
@@ -120,7 +120,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                       child: Center(
                         child: Text(
-                          data['fragen'],
+                          data[positionFragen]['frage'],
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -143,7 +143,7 @@ class _QuizPageState extends State<QuizPage> {
                           textColor: Colors.white,
                           color: Colors.greenAccent[400],
                           child: Text(
-                            data['antworten'][0],
+                            data[positionFragen]['antwort'][0],
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
@@ -151,7 +151,7 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              checkAnswer(data['antworten'][0]);
+                              checkAnswer(data[positionFragen]['antwort'][0]);
                             });
                           },
                         ),
@@ -166,7 +166,7 @@ class _QuizPageState extends State<QuizPage> {
                           textColor: Colors.white,
                           color: Colors.greenAccent[400],
                           child: Text(
-                            data['antworten'][1],
+                            data[positionFragen]['antwort'][1],
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
@@ -174,7 +174,7 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              checkAnswer(data['antworten'][1]);
+                              checkAnswer(data[positionFragen]['antwort'][1]);
                             });
                           },
                         ),
@@ -196,7 +196,7 @@ class _QuizPageState extends State<QuizPage> {
                           textColor: Colors.white,
                           color: Colors.greenAccent[400],
                           child: Text(
-                            data['antworten'][2],
+                            data[positionFragen]['antwort'][2],
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
@@ -204,7 +204,7 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              checkAnswer(data['antworten'][2]);
+                              checkAnswer(data[positionFragen]['antwort'][2]);
                             });
                           },
                         ),
@@ -219,7 +219,7 @@ class _QuizPageState extends State<QuizPage> {
                           textColor: Colors.white,
                           color: Colors.greenAccent[400],
                           child: Text(
-                            data['antworten'][3],
+                            data[positionFragen]['antwort'][3],
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
@@ -227,7 +227,7 @@ class _QuizPageState extends State<QuizPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              checkAnswer(data['antworten'][3]);
+                              checkAnswer(data[positionFragen]['antwort'][3]);
                             });
                           },
                         ),
@@ -295,3 +295,4 @@ class _QuizPageState extends State<QuizPage> {
     });
   }
 }
+
